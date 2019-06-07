@@ -1,7 +1,7 @@
-import asyncio
-import aiohttp
-import uuid
 import json
+import uuid
+
+import aiohttp
 
 PROTOCOL = 'ws'
 HOST = 'api-beta.upbit.com/websocket'

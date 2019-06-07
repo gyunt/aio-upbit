@@ -1,8 +1,8 @@
-import asyncio
-import aiohttp
-import jwt
 import time
 from urllib.parse import urlencode
+
+import aiohttp
+import jwt
 
 PROTOCOL = 'https'
 HOST = 'api-beta.upbit.com'
