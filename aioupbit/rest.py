@@ -4,6 +4,8 @@ from urllib.parse import urlencode
 import aiohttp
 import jwt
 
+from aioupbit.exceptions import ResponseError
+
 PROTOCOL = 'https'
 HOST = 'api-beta.upbit.com'
 VERSION = 'v1'
@@ -52,14 +54,14 @@ class UpbitRest(object):
                 url = '{0:s}?{1:s}'.format(url, query_params)
             token = jwt.encode(payload, self._secret_key, algorithm='HS256')
             headers['Authorization'] = 'Bearer {0:s}'.format(token.decode('utf-8'))
-        async with self._session.request(method, url, headers=headers, params=(query_params if query_params else None)) as resp:
-            if resp.reason == 'OK':
-                #result = await resp.text()
-                result = await resp.json()
-            else:
-                result = None
+        async with self._session.request(method, url, headers=headers,
+                                         params=(query_params if query_params else None)) as resp:
+            result = await resp.json()
+            if 'error' in result:
+                raise ResponseError(name=result['error']['name'],
+                                    message=result['error']['message'])
         return result
-        
+
     def get_host_url(self):
         url = '{0:s}://{1:s}/{2:s}'.format(PROTOCOL, HOST, VERSION)
         return url
