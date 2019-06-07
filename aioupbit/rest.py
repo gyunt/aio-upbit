@@ -160,4 +160,3 @@ class UpbitRest(object):
     async def withdraw_krw(self, amount):
         query_params = urlencode({'amount': amount})
         return await self._fetch('POST', 'withdraws/krw', query_params=query_params, authorization=True)
-

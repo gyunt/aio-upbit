@@ -95,4 +95,3 @@ class UpbitWs(object):
     async def get_orderbook_streaming(self, markets):
         message = self._make_message('orderbook', markets, False)
         return await self._dispatch(message)
-
