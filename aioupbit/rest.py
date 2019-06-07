@@ -105,8 +105,8 @@ class UpbitRest(object):
         query_params = {'markets': markets}
         return await self._fetch('GET', 'ticker', query_params=query_params)
 
-    async def get_assets(self):
-        return await self._fetch('GET', 'assets', authorization=True)
+    async def get_accounts(self):
+        return await self._fetch('GET', 'accounts', authorization=True)
 
     async def get_order_chance(self, market):
         query_params = urlencode({'market': market})
