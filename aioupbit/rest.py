@@ -119,11 +119,11 @@ class UpbitRest(object):
                                   'state': state,
                                   'page': page,
                                   'order_by': order_by})
-        return await self._fetch('GET', 'orders', method='get', query_params=query_params, authorization=True)
+        return await self._fetch('GET', 'orders', query_params=query_params, authorization=True)
 
     async def get_order(self, uuid):
         query_params = urlencode({'uuid': uuid})
-        return await self._fetch('GET', 'order', method='get', query_params=query_params, authorization=True)
+        return await self._fetch('GET', 'order', query_params=query_params, authorization=True)
 
     async def place_order(self, market, side, volume, price, ord_type='limit'):
         query_params = urlencode({'market': market,
