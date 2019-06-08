@@ -4,7 +4,7 @@ from urllib.parse import urlencode
 import aiohttp
 import jwt
 
-from aioupbit.exceptions import ResponseError
+from aioupbit.exceptions import find_error_types
 
 PROTOCOL = 'https'
 HOST = 'api-beta.upbit.com'
@@ -58,8 +58,8 @@ class UpbitRest(object):
                                          params=(query_params if query_params else None)) as resp:
             result = await resp.json()
             if 'error' in result:
-                raise ResponseError(name=result['error']['name'],
-                                    message=result['error']['message'])
+                raise find_error_types(result['error']['name'])(name=result['error']['name'],
+                                                                message=result['error']['message'])
         return result
 
     def get_host_url(self):
